@@ -1,10 +1,38 @@
+import requests
+import os
 from PIL import Image, ImageEnhance, ImageDraw, ImageFont
 
-width = 350
-
 # 原始图像路径
-jpg_path = './assert/test3.png'
-image_path = './temp.png'
+jpg_path = './temp.png'
+image_path = jpg_path
+
+# 照片尺寸
+width = 500
+
+# 發送請求並取得圖片 URL
+response = requests.get('https://dog.ceo/api/breeds/image/random')
+
+if response.status_code == 200:
+    data = response.json()
+    image_url = data.get('message')
+    print(f"圖片的 URL 是：{image_url}")
+
+    # 下載圖片
+    image_response = requests.get(image_url)
+    if image_response.status_code == 200:
+        # 取得圖片的檔案名稱
+        image_name = jpg_path
+        # 保存圖片
+        with open(image_name, 'wb') as file:
+            file.write(image_response.content)
+        print(f"圖片已保存為 {image_name}")
+    else:
+        print(f"無法下載圖片。狀態碼：{image_response.status_code}")
+else:
+    print(f"無法取得資料。狀態碼：{response.status_code}")
+
+
+
 
 # 打开图像
 image = Image.open(jpg_path)
@@ -80,3 +108,4 @@ else:
     ascii_str = image_to_ascii(gray_image)
     # 将 ASCII 字符串绘制到图像并保存
     ascii_to_image(ascii_str, gray_image.width, output_image_path, font_size=10, bg_color="black", font_color="white")
+
