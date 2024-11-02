@@ -4,8 +4,8 @@ from PIL import Image, ImageEnhance, ImageDraw, ImageFont, ImageTk
 import tkinter as tk
 
 # 原始图像路径
-jpg_path = './temp.png'
-image_path = jpg_path
+original_path = './files/original.png'
+modify_path = './files/modify.png'
 
 # 照片尺寸
 width = 500
@@ -16,22 +16,22 @@ response = requests.get('https://dog.ceo/api/breeds/image/random')
 if response.status_code == 200:
     data = response.json()
     image_url = data.get('message')
-    print(f"图片的 URL 是：{image_url}")
+    print(f"圖片的 URL：{image_url}")
 
     # 下载图片
     image_response = requests.get(image_url)
     if image_response.status_code == 200:
         # 保存图片
-        with open(jpg_path, 'wb') as file:
+        with open(original_path, 'wb') as file:
             file.write(image_response.content)
-        print(f"图片已保存为 {jpg_path}")
+        print(f"圖片已保存到 {original_path}")
     else:
-        print(f"无法下载图片。状态码：{image_response.status_code}")
+        print(f"無法下載圖片，狀態碼：{image_response.status_code}")
 else:
-    print(f"无法获取数据。状态码：{response.status_code}")
+    print(f"無法獲取數據，狀態碼：{response.status_code}")
 
 # 打开图像
-image = Image.open(jpg_path)
+image = Image.open(original_path)
 
 # 显示原始图像
 def display_original_image(image):
@@ -72,7 +72,7 @@ brightness_enhancer = ImageEnhance.Brightness(image_contrasted)
 image_result = brightness_enhancer.enhance(0.8)  # 1.0 为原始值，小于 1.0 降低亮度
 
 # 保存处理后的图像
-image_result.save(image_path)
+image_result.save(modify_path)
 
 # ASCII 字符集，包含更多字符以获得更好的效果
 ASCII_CHARS = "@@@@@@@@@@@@@@@%%%%%%%%%%%%%%%%%%%%%%%%%%%%############################*****************************++++++++++++++++++++++++++++============================-----------------------------::::::::::::::::::::::::::::............................               "
@@ -121,10 +121,10 @@ def ascii_to_image(ascii_str, image_width, output_path, font_size=10, bg_color="
     print(f"ASCII 图像已保存为 {output_path}")
 
 # 主程序
-output_image_path = 'ascii_art.png'
+output_image_path = './files/ascii_art.png'
 
 try:
-    image = Image.open(image_path)
+    image = Image.open(modify_path)
 except Exception as e:
     print(f"Error opening image: {e}")
 else:
