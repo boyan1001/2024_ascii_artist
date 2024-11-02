@@ -1,8 +1,9 @@
 from PIL import Image
 
-ASCII_CHARS = "@%#*+=-:. "
+# ASCII_CHARS = " %@#*+==--::..    "
+ASCII_CHARS = " @#S%?*+;:,..    "
 
-def resize_gray_image(image, new_width=1000):
+def resize_gray_image(image, new_width=150):
     width, height = image.size
     aspect_ratio = height / width
     new_height = int(aspect_ratio * new_width * 0.5)
@@ -12,7 +13,7 @@ def resize_gray_image(image, new_width=1000):
 
 def image_to_ascii(image):
     pixels = image.getdata()
-    ascii_str = "".join([ASCII_CHARS[pixel // 25] for pixel in pixels])
+    ascii_str = "".join([ASCII_CHARS[pixel * (len(ASCII_CHARS) - 1) // 255] for pixel in pixels])
     ascii_image = [ascii_str[index: index + image.width] for index in range(0, len(ascii_str), image.width)]
     return "\n".join(ascii_image)
 
