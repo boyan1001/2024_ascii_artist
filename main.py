@@ -1,12 +1,15 @@
 from PIL import Image
+
 ASCII_CHARS = "@%#*+=-:. "
-def resize_gray_image(image, new_width=100):
+
+def resize_gray_image(image, new_width=1000):
     width, height = image.size
     aspect_ratio = height / width
     new_height = int(aspect_ratio * new_width * 0.5)
     resized_image = image.resize((new_width, new_height))
     gray_image = resized_image.convert("L")
     return gray_image
+
 def image_to_ascii(image):
     pixels = image.getdata()
     ascii_str = "".join([ASCII_CHARS[pixel // 25] for pixel in pixels])
@@ -14,7 +17,9 @@ def image_to_ascii(image):
     return "\n".join(ascii_image)
 
 
-image_path = '/home/scott0227/Interesting project/omuba_1.jpeg'
+
+image_path = './assert/test3.png'
+
 try:
     image = Image.open(image_path)
 except Exception as e:
