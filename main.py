@@ -1,9 +1,9 @@
 from PIL import Image
 
 # ASCII_CHARS = " %@#*+=-:.  "
-ASCII_CHARS = "@@@@@@@@@@@@@@@%%%%%%%%%%%%%%%%%%%%%%%%%%%%############################*****************************++++++++++++++++++++++++++++============================-----------------------------::::::::::::::::::::::::::::............................               "
+ASCII_CHARS = " @@@@@@@@@@@@@@@%%%%%%%%%%%%%%%%%%%%%%%%%%%%############################*****************************++++++++++++++++++++++++++++============================-----------------------------::::::::::::::::::::::::::::............................               "
 
-def resize_gray_image(image, new_width=256):
+def resize_gray_image(image, new_width=500):
     width, height = image.size
     aspect_ratio = height / width
     new_height = int(aspect_ratio * new_width * 0.5)
@@ -19,7 +19,7 @@ def image_to_ascii(image):
 
 
 
-image_path = './assert/e57a8340-d13e-4886-aa61-6fe8c06c5432.jpg'
+image_path = './assert/下載.jpg'
 
 file = open('output3.txt', 'w', encoding='utf-8')
 
