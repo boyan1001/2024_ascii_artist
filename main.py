@@ -1,3 +1,6 @@
+'''
+請安在終端機上輸入pip install pillow pywhatkit
+'''
 from PIL import Image
 ASCII_CHARS = "@%#*+=-:. "
 def resize_gray_image(image, new_width=100):
