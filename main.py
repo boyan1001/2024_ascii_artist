@@ -1,6 +1,7 @@
 import requests
 import os
-from PIL import Image, ImageEnhance, ImageDraw, ImageFont
+from PIL import Image, ImageEnhance, ImageDraw, ImageFont, ImageTk
+import tkinter as tk
 
 # 原始图像路径
 jpg_path = './temp.png'
@@ -9,51 +10,76 @@ image_path = jpg_path
 # 照片尺寸
 width = 500
 
-# 發送請求並取得圖片 URL
+# 发出请求并获取图片 URL
 response = requests.get('https://dog.ceo/api/breeds/image/random')
 
 if response.status_code == 200:
     data = response.json()
     image_url = data.get('message')
-    print(f"圖片的 URL 是：{image_url}")
+    print(f"图片的 URL 是：{image_url}")
 
-    # 下載圖片
+    # 下载图片
     image_response = requests.get(image_url)
     if image_response.status_code == 200:
-        # 取得圖片的檔案名稱
-        image_name = jpg_path
-        # 保存圖片
-        with open(image_name, 'wb') as file:
+        # 保存图片
+        with open(jpg_path, 'wb') as file:
             file.write(image_response.content)
-        print(f"圖片已保存為 {image_name}")
+        print(f"图片已保存为 {jpg_path}")
     else:
-        print(f"無法下載圖片。狀態碼：{image_response.status_code}")
+        print(f"无法下载图片。状态码：{image_response.status_code}")
 else:
-    print(f"無法取得資料。狀態碼：{response.status_code}")
-
-
-
+    print(f"无法获取数据。状态码：{response.status_code}")
 
 # 打开图像
 image = Image.open(jpg_path)
 
+# 显示原始图像
+def display_original_image(image):
+    root = tk.Tk()
+    root.title("Original Image")
+
+    # 调整图像大小以适应屏幕
+    screen_width = root.winfo_screenwidth()
+    screen_height = root.winfo_screenheight()
+    img_width, img_height = image.size
+
+    if img_width > screen_width or img_height > screen_height:
+        ratio = min(screen_width / img_width, screen_height / img_height) * 0.8  # 缩放到屏幕的 80%
+        image_resized = image.resize((int(img_width * ratio), int(img_height * ratio)), Image.LANCZOS)
+    else:
+        image_resized = image
+
+    # 将图像转换为 Tkinter 可显示的格式
+    tk_image = ImageTk.PhotoImage(image_resized)
+
+    # 创建标签来显示图像
+    label = tk.Label(root, image=tk_image)
+    label.image = tk_image  # 保持引用，防止被垃圾回收
+    label.pack()
+
+    # 启动 Tkinter 主循环
+    root.mainloop()
+
+# 调用显示原始图像的函数
+display_original_image(image)
+
 # 增加对比度
 contrast_enhancer = ImageEnhance.Contrast(image)
-image_contrasted = contrast_enhancer.enhance(1.8)  # 1.0 为原始值，大于 1.0 增加对比度
+image_contrasted = contrast_enhancer.enhance(1.5)  # 1.0 为原始值，大于 1.0 增加对比度
 
 # 降低亮度
 brightness_enhancer = ImageEnhance.Brightness(image_contrasted)
-image_result = brightness_enhancer.enhance(0.9)  # 1.0 为原始值，小于 1.0 降低亮度
+image_result = brightness_enhancer.enhance(0.8)  # 1.0 为原始值，小于 1.0 降低亮度
 
-# 保存临时处理后的图像
+# 保存处理后的图像
 image_result.save(image_path)
 
 # ASCII 字符集，包含更多字符以获得更好的效果
 ASCII_CHARS = "@@@@@@@@@@@@@@@%%%%%%%%%%%%%%%%%%%%%%%%%%%%############################*****************************++++++++++++++++++++++++++++============================-----------------------------::::::::::::::::::::::::::::............................               "
 
-def resize_gray_image(image, new_width = width):
-    width, height = image.size
-    aspect_ratio = height / width
+def resize_gray_image(image, new_width=width):
+    width_img, height = image.size
+    aspect_ratio = height / width_img
     new_height = int(aspect_ratio * new_width * 0.5)  # 调整高度以匹配字符的宽高比
     resized_image = image.resize((new_width, new_height))
     gray_image = resized_image.convert("L")  # 转换为灰度图像
@@ -109,3 +135,33 @@ else:
     # 将 ASCII 字符串绘制到图像并保存
     ascii_to_image(ascii_str, gray_image.width, output_image_path, font_size=10, bg_color="black", font_color="white")
 
+    # 显示 ASCII 艺术图像
+    def display_image(image_path):
+        root = tk.Tk()
+        root.title("ASCII Art")
+        
+        # 打开图像文件
+        img = Image.open(image_path)
+        
+        # 调整图像大小以适应屏幕
+        screen_width = root.winfo_screenwidth()
+        screen_height = root.winfo_screenheight()
+        img_width, img_height = img.size
+        
+        if img_width > screen_width or img_height > screen_height:
+            ratio = min(screen_width / img_width, screen_height / img_height) * 0.8  # 缩放到屏幕的 80%
+            img = img.resize((int(img_width * ratio), int(img_height * ratio)), Image.LANCZOS)
+        
+        # 将图像转换为 Tkinter 可显示的格式
+        tk_image = ImageTk.PhotoImage(img)
+        
+        # 创建标签来显示图像
+        label = tk.Label(root, image=tk_image)
+        label.image = tk_image  # 保持引用，防止被垃圾回收
+        label.pack()
+        
+        # 启动 Tkinter 主循环
+        root.mainloop()
+    
+    # 调用显示 ASCII 艺术图像的函数
+    display_image(output_image_path)
