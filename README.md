@@ -37,10 +37,13 @@
 
 ## 🛠️ 貢獻者須知  
 
+貢獻者需知可參考 [CONTRIBUTING.md](CONTRIBUTING.md) 與 [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) 檔案～  
+  
 有任何想法，歡迎在 [Issues](https://github.com/boyan1001/boyan_csie_notebook/issues) 提出  
 
 ## 💪 貢獻者
-
+感謝下列大大們的貢獻～  
+  
 <a href="https://github.com/boyan1001/2024_ascii_artist/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=boyan1001/2024_ascii_artist" />
 </a>
