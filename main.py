@@ -1,34 +1,67 @@
 import requests
 import os
+from io import BytesIO
 from PIL import Image, ImageEnhance, ImageDraw, ImageFont, ImageTk
 import tkinter as tk
+
+def download_waifu_image(filename="waifu_image.png"):
+    """
+    Download a random anime image from waifu.pics API and save it to the current directory.
+    :param filename: The filename to save the image as, default is "waifu_image.png"
+    :return: The path to the saved image if successful, None otherwise
+    """
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    image_path = os.path.join(current_dir, filename)
+
+    api_url = "https://api.waifu.pics/sfw/waifu"
+    response = requests.get(api_url)
+
+    if response.status_code == 200:
+        image_url = response.json().get("url")
+        image_response = requests.get(image_url)
+
+        if image_response.status_code == 200:
+            image = Image.open(BytesIO(image_response.content))
+            image.save(image_path)
+            print(f"Image successfully saved to: {image_path}")
+            return image_path
+        else:
+            print("Failed to download image")
+            return None
+
+    else:
+        print("API request failed")
+        return None
+
+download_waifu_image("./files/original.png")
 
 # 原始图像路径
 original_path = './files/original.png'
 modify_path = './files/modify.png'
 
 # 照片尺寸
-width = 500
+width = 750
 
-# 发出请求并获取图片 URL
-response = requests.get('https://dog.ceo/api/breeds/image/random')
+# 从 API 下载一张狗狗的图片
+# # 发出请求并获取图片 URL
+# response = requests.get('https://dog.ceo/api/breeds/image/random')
 
-if response.status_code == 200:
-    data = response.json()
-    image_url = data.get('message')
-    print(f"圖片的 URL：{image_url}")
+# if response.status_code == 200:
+#     data = response.json()
+#     image_url = data.get('message')
+#     print(f"圖片的 URL：{image_url}")
 
-    # 下载图片
-    image_response = requests.get(image_url)
-    if image_response.status_code == 200:
-        # 保存图片
-        with open(original_path, 'wb') as file:
-            file.write(image_response.content)
-        print(f"圖片已保存到 {original_path}")
-    else:
-        print(f"無法下載圖片，狀態碼：{image_response.status_code}")
-else:
-    print(f"無法獲取數據，狀態碼：{response.status_code}")
+#     # 下载图片
+#     image_response = requests.get(image_url)
+#     if image_response.status_code == 200:
+#         # 保存图片
+#         with open(original_path, 'wb') as file:
+#             file.write(image_response.content)
+#         print(f"圖片已保存到 {original_path}")
+#     else:
+#         print(f"無法下載圖片，狀態碼：{image_response.status_code}")
+# else:
+#     print(f"無法獲取數據，狀態碼：{response.status_code}")
 
 # 打开图像
 image = Image.open(original_path)
