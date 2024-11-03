@@ -4,6 +4,7 @@ from io import BytesIO
 from PIL import Image, ImageEnhance, ImageDraw, ImageFont, ImageTk
 import tkinter as tk
 import UI
+import camera as cam
 
 # 原始图像路径
 original_path = './files/original.png'
@@ -147,12 +148,19 @@ def ascii_to_image(ascii_str, image_width, output_path, font_size=10, bg_color="
     img = Image.new("RGB", (img_width, img_height), color=bg_color)
     draw = ImageDraw.Draw(img)
     
-    # 使用等宽字体，确保字符对齐
+    # 加載等寬字體
     try:
-        font = ImageFont.truetype("DejaVuSansMono.ttf", size=font_size)
+        # 嘗試在不同系統上使用常見的等寬字體
+        font = ImageFont.truetype("./font/DejaVuSansMono.ttf", size=font_size)  # Linux 常用字體
     except IOError:
-        font = ImageFont.load_default()
-        print("无法找到指定字体，使用默认字体。")
+        try:
+            font = ImageFont.truetype("Consolas.ttf", size=font_size)  # Windows 常用字體
+        except IOError:
+            try:
+                font = ImageFont.truetype("Lucida Console.ttf", size=font_size)  # Windows 另一常見等寬字體
+            except IOError:
+                font = ImageFont.load_default()  # 使用默認字體
+                print("无法找到指定字体，使用默认字体。")
     
     # 绘制每一行
     y = 0
@@ -164,47 +172,6 @@ def ascii_to_image(ascii_str, image_width, output_path, font_size=10, bg_color="
     img.save(output_path)
     print(f"ASCII 图像已保存为 {output_path}")
 
-# def generate_ascii_art(input_image_path, output_image_path, width=100, font_size=10, bg_color="black", font_color="white"):
-#     def resize_gray_image(image, new_width):
-#         width, height = image.size
-#         aspect_ratio = height / width
-#         new_height = int(aspect_ratio * new_width)
-#         resized_image = image.resize((new_width, new_height))
-#         gray_image = resized_image.convert("L")  # 轉換為灰度
-#         return gray_image
-
-#     def image_to_ascii(gray_image):
-#         ASCII_CHARS = "@%#*+=-:. "  # ASCII字符集，用來表示不同灰度級
-#         ascii_str = ""
-#         pixels = gray_image.getdata()
-#         for pixel in pixels:
-#             ascii_str += ASCII_CHARS[pixel // 32]  # 將灰度值映射到ASCII字符
-#         ascii_str = "\n".join([ascii_str[i:i + gray_image.width] for i in range(0, len(ascii_str), gray_image.width)])
-#         return ascii_str
-
-#     def ascii_to_image(ascii_str, width, output_path, font_size=10, bg_color="black", font_color="white"):
-#         from PIL import Image, ImageDraw, ImageFont
-
-#         lines = ascii_str.splitlines()
-#         height = font_size * len(lines)
-        
-#         # 建立圖像
-#         img = Image.new("RGB", (width * font_size, height), bg_color)
-#         draw = ImageDraw.Draw(img)
-        
-#         # 使用系統默認字體
-#         try:
-#             font = ImageFont.truetype("arial.ttf", font_size)
-#         except IOError:
-#             font = ImageFont.load_default()
-
-#         # 將ASCII字符繪製到圖像上
-#         y = 0
-#         for line in lines:
-#             draw.text((0, y), line, font=font, fill=font_color)
-#             y += font_size
-
-#         img.save(output_path)
 
 def display_image(image_path):
     root = tk.Tk()
@@ -233,19 +200,6 @@ def display_image(image_path):
     # 啟動Tkinter主循環
     root.mainloop()
 
-#     try:
-#         image = Image.open(input_image_path)
-#     except Exception as e:
-#         print(f"Error opening image: {e}")
-#     else:
-#         # 調整圖像並轉換為灰度
-#         gray_image = resize_gray_image(image, new_width=width)
-#         # 將灰度圖像轉換為ASCII字符串
-#         ascii_str = image_to_ascii(gray_image)
-#         # 將ASCII字符串繪製到圖像並保存
-#         ascii_to_image(ascii_str, gray_image.width, output_image_path, font_size=font_size, bg_color=bg_color, font_color=font_color)
-#         # 顯示ASCII藝術圖像
-#         display_image(output_image_path)
 
 while (True):
     UI.clear()
@@ -255,9 +209,10 @@ while (True):
     print("1. Random Anime Image")
     print("2. Random Dog Image")
     print("3. Your Image")
-    print("4. Exit")
+    print("4. Camera Mode")
+    print("5. Exit")
 
-    choice = input("Enter your choice (1/2/3/4): ")
+    choice = input("Enter your choice (1/2/3/4/5): ")
 
     # 原始图像路径
     original_path = './files/original.png'
@@ -347,7 +302,12 @@ while (True):
         display_image(output_image_path)
         continue
 
-    elif choice == "4": # 退出
+    elif choice == "4": # 照相機功能
+        UI.clear()
+        cam.camera_mode()
+        continue
+
+    elif choice == "5": # 退出
         UI.clear()
         UI.title()
         print("Goodbye!")
