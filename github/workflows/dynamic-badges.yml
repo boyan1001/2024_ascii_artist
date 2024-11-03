@@ -11,7 +11,7 @@ jobs:
       uses: schneegans/dynamic-badges-action@v1.7.0
       with:
         auth: ${{ secrets.GIST_SECRET }}
-        gistID: 879f15d5c5a65503d14e1ba7167e06bd
+        gistID: https://gist.github.com/boyan1001/879f15d5c5a65503d14e1ba7167e06bd
         filename: haha.json
         label: Hello
         message: World
