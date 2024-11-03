@@ -1,6 +1,6 @@
 ![ascii-text-art](https://github.com/user-attachments/assets/2f304d18-22df-4995-bd1f-18445d09078b)              
 # 2024 ASCII ARTIST
-[badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/boyan1001/879f15d5c5a65503d14e1ba7167e06bd/raw/haha.json)
+![badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/boyan1001/879f15d5c5a65503d14e1ba7167e06bd/raw/haha.json)
 
 這是一個 **ascii art** 生成器。  
   
