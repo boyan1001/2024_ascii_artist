@@ -46,6 +46,9 @@ def camera_mode():
             if not ret or exit_flag:
                 break
 
+            # 水平翻轉幀
+            frame = cv2.flip(frame, 1)
+
             # 將幀轉換為 ASCII 藝術並輸出到終端
             ascii_art = image_to_ascii(frame, width=100)
             print("\033c", end="")  # 清空終端
