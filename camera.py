@@ -6,6 +6,9 @@ import threading
 exit_flag = False
 
 def camera_mode():
+    global exit_flag
+    exit_flag = False  # 確保每次執行時 exit_flag 都設為 False
+
     # ASCII 字符集，用於生成 ASCII 藝術
     ASCII_CHARS = " .',:;\"^`i!lI><~+_-?][}{1)(|\\/tfjrxnuvczXYUJCLQO0Zmwpqdbkhao*#MW&8%B@$"
 
@@ -53,10 +56,13 @@ def camera_mode():
             ascii_art = image_to_ascii(frame, width=100)
             print("\033c", end="")  # 清空終端
             print(ascii_art)
-            # print("\n\nPress Enter to stop...")
+
+            # 按下 Enter 鍵退出
+            if exit_flag:
+                break
 
     finally:
-        print("\033[?25h", end="")
+        print("\033[?25h", end="")  # 顯示游標
         # 釋放攝像頭資源
         cap.release()
         cv2.destroyAllWindows()
