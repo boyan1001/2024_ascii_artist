@@ -1,6 +1,13 @@
 ![ascii-text-art](https://github.com/user-attachments/assets/2f304d18-22df-4995-bd1f-18445d09078b)              
 # 2024 ASCII ARTIST
-![badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/boyan1001/879f15d5c5a65503d14e1ba7167e06bd/raw/haha.json)
+![contributor](https://img.shields.io/github/contributors/boyan1001/2024_ascii_artist?style=for-the-badge)
+![license](https://img.shields.io/github/license/boyan1001/2024_ascii_artist?style=for-the-badge)
+![Last Commit](https://img.shields.io/github/last-commit/boyan1001/2024_ascii_artist?style=for-the-badge)
+![Pull Requests](https://img.shields.io/github/issues-pr/boyan1001/2024_ascii_artist?style=for-the-badge)
+![Language](https://img.shields.io/github/languages/top/boyan1001/2024_ascii_artist?style=for-the-badge)
+![Platform](https://img.shields.io/badge/platform-Windows-blue?style=for-the-badge)
+
+
 
 這是一個 **ascii art** 生成器。  
   
