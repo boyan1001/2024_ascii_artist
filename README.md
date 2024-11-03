@@ -1,5 +1,5 @@
-![ascii-text-art](https://github.com/user-attachments/assets/2f304d18-22df-4995-bd1f-18445d09078b)              
-# 2024 ASCII ARTIST
+![ascii-text-art](https://github.com/user-attachments/assets/2f304d18-22df-4995-bd1f-18445d09078b)       
+  
 ![contributor](https://img.shields.io/github/contributors/boyan1001/2024_ascii_artist?style=for-the-badge)
 ![license](https://img.shields.io/github/license/boyan1001/2024_ascii_artist?style=for-the-badge)
 ![Last Commit](https://img.shields.io/github/last-commit/boyan1001/2024_ascii_artist?style=for-the-badge)
