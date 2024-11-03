@@ -97,11 +97,11 @@ def display_original_image(image):
 def modify_image():
     # 增加对比度
     contrast_enhancer = ImageEnhance.Contrast(image)
-    image_contrasted = contrast_enhancer.enhance(1.0)  # 1.0 为原始值，大于 1.0 增加对比度
+    image_contrasted = contrast_enhancer.enhance(1.2)  # 1.0 为原始值，大于 1.0 增加对比度
 
     # 降低亮度
     brightness_enhancer = ImageEnhance.Brightness(image_contrasted)
-    image_result = brightness_enhancer.enhance(1.0)  # 1.0 为原始值，小于 1.0 降低亮度
+    image_result = brightness_enhancer.enhance(1.5)  # 1.0 为原始值，小于 1.0 降低亮度
 
     # 保存处理后的图像
     image_result.save(modify_path)
@@ -115,30 +115,47 @@ def rgb_to_grayscale(r, g, b):
     gray = int(0.2989 * r + 0.5870 * g + 0.1140 * b)
     return gray
 
-# 調整圖像大小並轉換為灰度
-def resize_gray_image(image, new_width=150):
+# # 調整圖像大小並轉換為灰度
+# def resize_gray_image(image, new_width=150):
+#     width_img, height = image.size
+#     aspect_ratio = height / width_img
+#     new_height = int(aspect_ratio * new_width * 0.5)
+#     resized_image = image.resize((new_width, new_height))
+
+#     # 使用自定義的 RGB 到灰度轉換
+#     gray_image = resized_image.convert("RGB")
+#     grayscale_pixels = [rgb_to_grayscale(r, g, b) for r, g, b in gray_image.getdata()]
+#     grayscale_image = Image.new("L", resized_image.size)
+#     grayscale_image.putdata(grayscale_pixels)
+
+#     return grayscale_image
+
+# 調整圖像大小
+def resize_image(image, new_width=100):
     width_img, height = image.size
     aspect_ratio = height / width_img
     new_height = int(aspect_ratio * new_width * 0.5)
     resized_image = image.resize((new_width, new_height))
+    return resized_image
 
-    # 使用自定義的 RGB 到灰度轉換
-    gray_image = resized_image.convert("RGB")
-    grayscale_pixels = [rgb_to_grayscale(r, g, b) for r, g, b in gray_image.getdata()]
-    grayscale_image = Image.new("L", resized_image.size)
-    grayscale_image.putdata(grayscale_pixels)
-
-    return grayscale_image
-
+# 將圖像轉換為 ASCII 字符串，同時保留顏色資訊
 def image_to_ascii(image):
     pixels = image.getdata()
-    # 将像素值映射到 ASCII 字符集的索引范围内
-    ascii_str = "".join([ASCII_CHARS[pixel * (len(ASCII_CHARS) - 1) // 255] for pixel in pixels])
-    return ascii_str
+    ascii_chars = []
+    colors = []
+    for pixel in pixels:
+        r, g, b = pixel[:3]  # 獲取 RGB 值
+        gray = int(0.2989 * r + 0.5870 * g + 0.1140 * b)
+        ascii_char = ASCII_CHARS[gray * (len(ASCII_CHARS) - 1) // 255]
+        ascii_chars.append(ascii_char)
+        colors.append((r, g, b))
+    ascii_str = ''.join(ascii_chars)
+    return ascii_str, colors
 
-def ascii_to_image(ascii_str, image_width, output_path, font_size=10, bg_color="black", font_color="white"):
+def ascii_to_image(ascii_str, colors, image_width, output_path, font_size=10, bg_color="black"):
     # 计算图像的宽度和高度
     lines = [ascii_str[index: index + image_width] for index in range(0, len(ascii_str), image_width)]
+    line_colors = [colors[index: index + image_width] for index in range(0, len(colors), image_width)]
     char_width = font_size * 0.6  # 字符的宽度，可能需要根据字体调整
     char_height = font_size
     img_width = int(char_width * image_width)
@@ -151,21 +168,25 @@ def ascii_to_image(ascii_str, image_width, output_path, font_size=10, bg_color="
     # 加載等寬字體
     try:
         # 嘗試在不同系統上使用常見的等寬字體
-        font = ImageFont.truetype("./font/DejaVuSansMono.ttf", size=font_size)  # Linux 常用字體
+        font = ImageFont.truetype("./font/DejaVuSansMono.ttf", size=font_size)
     except IOError:
         try:
-            font = ImageFont.truetype("Consolas.ttf", size=font_size)  # Windows 常用字體
+            font = ImageFont.truetype("Consolas.ttf", size=font_size)
         except IOError:
             try:
-                font = ImageFont.truetype("Lucida Console.ttf", size=font_size)  # Windows 另一常見等寬字體
+                font = ImageFont.truetype("Lucida Console.ttf", size=font_size)
             except IOError:
-                font = ImageFont.load_default()  # 使用默認字體
+                font = ImageFont.load_default()
                 print("无法找到指定字体，使用默认字体。")
     
     # 绘制每一行
     y = 0
-    for line in lines:
-        draw.text((0, y), line, fill=font_color, font=font)
+    for line_num, line in enumerate(lines):
+        x = 0
+        for char_num, char in enumerate(line):
+            color = line_colors[line_num][char_num]
+            draw.text((x, y), char, fill=color, font=font)
+            x += char_width
         y += char_height
     
     # 保存图像
@@ -229,17 +250,19 @@ while (True):
         image = Image.open(original_path)
         display_original_image(image)
 
-        # 調整圖片
+        # 調整圖片大小
+        image = resize_image(image, new_width=width)
+
         modify_image()
 
-        # 調整圖像並轉換為灰度
-        gray_image = resize_gray_image(image, new_width=width)
-        # 將灰度圖像轉換為ASCII字符串
-        ascii_str = image_to_ascii(gray_image)
+        # 將圖像轉換為 ASCII 字符串和顏色
+        ascii_str, colors = image_to_ascii(image)
         output_image_path = "./files/ascii_art.png"
-        # 將ASCII字符串繪製到圖像並保存
-        ascii_to_image(ascii_str, gray_image.width, output_image_path)
-        # 顯示ASCII藝術圖像
+
+
+        # 將 ASCII 字符串繪製到圖像並保存（帶顏色）
+        ascii_to_image(ascii_str, colors, image.width, output_image_path, font_size=10, bg_color="black")
+        # 顯示 ASCII 藝術圖像
         display_image(output_image_path)
 
         continue
@@ -253,17 +276,18 @@ while (True):
         image = Image.open(original_path)
         display_original_image(image)
 
-        # 調整圖片
+        # 調整圖片大小
+        image = resize_image(image, new_width=width)
+
         modify_image()
 
-        # 調整圖像並轉換為灰度
-        gray_image = resize_gray_image(image, new_width=width)
-        # 將灰度圖像轉換為ASCII字符串
-        ascii_str = image_to_ascii(gray_image)
+        # 將圖像轉換為 ASCII 字符串和顏色
+        ascii_str, colors = image_to_ascii(image)
         output_image_path = "./files/ascii_art.png"
-        # 將ASCII字符串繪製到圖像並保存
-        ascii_to_image(ascii_str, gray_image.width, output_image_path)
-        # 顯示ASCII藝術圖像
+
+        # 將 ASCII 字符串繪製到圖像並保存（帶顏色）
+        ascii_to_image(ascii_str, colors, image.width, output_image_path, font_size=10, bg_color="black")
+        # 顯示 ASCII 藝術圖像
         display_image(output_image_path)
 
         continue
@@ -288,18 +312,20 @@ while (True):
         image = Image.open(original_path)
         display_original_image(image)
 
-        # 調整圖片
+        # 調整圖片大小
         modify_image()
+        image = resize_image(image, new_width=width)
 
-        # 調整圖像並轉換為灰度
-        gray_image = resize_gray_image(image, new_width=width)
-        # 將灰度圖像轉換為ASCII字符串
-        ascii_str = image_to_ascii(gray_image)
+
+        # 將圖像轉換為 ASCII 字符串和顏色
+        ascii_str, colors = image_to_ascii(image)
         output_image_path = "./files/ascii_art.png"
-        # 將ASCII字符串繪製到圖像並保存
-        ascii_to_image(ascii_str, gray_image.width, output_image_path)
-        # 顯示ASCII藝術圖像
+
+        # 將 ASCII 字符串繪製到圖像並保存（帶顏色）
+        ascii_to_image(ascii_str, colors, image.width, output_image_path, font_size=10, bg_color="black")
+        # 顯示 ASCII 藝術圖像
         display_image(output_image_path)
+
         continue
 
     elif choice == "4": # 照相機功能
