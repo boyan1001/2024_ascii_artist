@@ -5,7 +5,7 @@ import os
 import tkinter as tk
 
 # ASCII 字符集，用於生成 ASCII 藝術
-ASCII_CHARS = "@%#*+=-:. "
+ASCII_CHARS = " .',:;\"^`i!lI><~+_-?][}{1)(|\\/tfjrxnuvczXYUJCLQO0Zmwpqdbkhao*#MW&8%B@$"
 
 # 將 RGB 值轉換為灰度值
 def rgb_to_grayscale(r, g, b):
@@ -83,8 +83,8 @@ def ascii_to_image(ascii_str, image_width, output_path, font_size=10, bg_color="
     print(f"ASCII image saved as {output_path}")
 
 # 主程序流程
-output_image_path = './ascii_art.png'
-original_path = download_waifu_image("original.png")
+output_image_path = './files/ascii_art.png'
+#original_path = download_waifu_image("original.png")
 #original_path = "./omuba_1.jpeg"
 if original_path:
     try:
