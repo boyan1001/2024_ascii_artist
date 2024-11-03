@@ -54,9 +54,10 @@ def resize_gray_image(image, new_width=150):
 # 將圖像轉換為 ASCII 字符串
 def image_to_ascii(image):
     pixels = image.getdata()
+    # 将像素值映射到 ASCII 字符集的索引范围内
     ascii_str = "".join([ASCII_CHARS[pixel * (len(ASCII_CHARS) - 1) // 255] for pixel in pixels])
     return ascii_str
-
+  
 # 將 ASCII 字符串繪製到圖像
 def ascii_to_image(ascii_str, image_width, output_path, font_size=10, bg_color="black", font_color="white"):
     lines = [ascii_str[index: index + image_width] for index in range(0, len(ascii_str), image_width)]
