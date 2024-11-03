@@ -8,6 +8,7 @@
 ![windows](https://img.shields.io/badge/windows-0078D6?logo=windows&logoColor=white&style=for-the-badge)
 
 
+本程式是**2024 師大資工白客松**中我們小隊（**歐姆巴說的對**）的參賽作品：**Ascii Artist**  
 
 這是一個 **ascii art** 生成器。  
   
