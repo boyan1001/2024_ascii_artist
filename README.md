@@ -22,7 +22,7 @@
 ├── camera.py 照相機模組  
 ├── UI.py  UI 函式庫  
 ├── .gitignore
-├── LICENSE.md
+├── LICENSE
 └── README.md
 ```
 
@@ -31,4 +31,4 @@
 有任何想法，歡迎在 [Issues](https://github.com/boyan1001/boyan_csie_notebook/issues) 提出  
 
 ## 🪪 Lisence  
-[MIT License](LICENSE.md) © Hank Chen  
+[MIT License](LICENSE) © Hank Chen  
