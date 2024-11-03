@@ -4,8 +4,8 @@
 ![license](https://img.shields.io/github/license/boyan1001/2024_ascii_artist?style=for-the-badge)
 ![Last Commit](https://img.shields.io/github/last-commit/boyan1001/2024_ascii_artist?style=for-the-badge)
 ![Pull Requests](https://img.shields.io/github/issues-pr/boyan1001/2024_ascii_artist?style=for-the-badge)
-![Language](https://img.shields.io/github/languages/top/boyan1001/2024_ascii_artist?style=for-the-badge)
-![Platform](https://img.shields.io/badge/platform-Windows-blue?style=for-the-badge)
+![Python](https://img.shields.io/badge/Python-14354C.svg?logo=python&logoColor=white&style=for-the-badge)
+![windows](https://img.shields.io/badge/windows-0078D6?logo=windows&logoColor=white&style=for-the-badge)
 
 
 
