@@ -30,5 +30,12 @@
 
 有任何想法，歡迎在 [Issues](https://github.com/boyan1001/boyan_csie_notebook/issues) 提出  
 
+## 💪 貢獻者
+
+<a href="https://github.com/boyan1001/2024_ascii_artist/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=boyan1001/2024_ascii_artist" />
+</a>
+
+
 ## 🪪 Lisence  
 [MIT License](LICENSE) © Hank Chen  
