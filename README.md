@@ -30,9 +30,7 @@
 ├── main.py                主函式
 ├── camera.py              照相機模組  
 ├── UI.py                  UI 函式庫  
-├── .gitignore
-├── LICENSE
-└── README.md
+└── ...
 ```
 
 ## 🛠️ 貢獻者須知  
