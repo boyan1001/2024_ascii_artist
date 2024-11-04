@@ -50,7 +50,7 @@ Jerryleess : Find api we can use / Offer ideas to us
 
 本程式可在 **Window** 作業系統上順利執行。  
 
-由於 **Ascii Artist** 有使用到許多 **pip** 模組，因此必須要先安裝完所需的套件才可執行。
+由於 **Ascii Artist** 有使用到許多 **pip** 套件，因此必須要先安裝完所需的套件才可執行。
 
 請先確認您是否在您的所屬環境中是否已安裝 **python** 及 **pip**。  
 *(Python 版本要求 : python 3.10 以上)*  
