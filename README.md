@@ -21,10 +21,10 @@
 ## 🧑‍💻 團隊分工  
 ```sh
 boyan1001 (Hank Chen) : Project manager / Camera interacting function /
-                        Colorful ascii art image / TUI design
+                        Colorful ascii art image generating / TUI design
 
 noyapoyo : Use anime api (waifu) and dog api (dor.ceo) /
-           Black and white ascii art image
+           Black and white ascii art image generating
 
 Jerryleess : Find api we can use / Offer ideas to us   
 ```
