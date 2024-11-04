@@ -46,12 +46,39 @@ Jerryleess : Find api we can use / Offer ideas to us
 ├── UI.py                  UI 函式庫  
 └── ...
 ```
+## 🖥️ 環境要求    
+
+本程式可在 **Window** 作業系統上順利執行。  
+
+由於 **Ascii Artist** 有使用到許多 **pip** 模組，因此必須要先安裝完所需的套件才可執行。
+
+請先確認您是否在您的所屬環境中是否已安裝 **python** 及 **pip**。  
+*(Python 版本要求 : python 3.10 以上)*  
+```bach
+python3 --version
+pip --version
+```
+如果你尚未安裝，請先安裝完成。  
+  
+接著，安裝 **requests、pillow、opencv-python、numpy** 這四個套件在您所屬的環境中：  
+（為了防止套件衝突，可以使用 **虛擬環境** 安裝套件）  
+```bach
+pip install requests pillow opencv-python numpy
+```
+安裝完成套件後，即可執行該程式。  
+
+## ⚙️ 執行程式
+如果你已安裝完環境後，可輸入下方指令開始執行程式：  
+```bash
+python main.py
+```
+本程式使用 **TUI** 設計，整個程式將在 **Terminal** 中執行。  
 
 ## 🛠️ 貢獻者須知  
 
 貢獻者需知可參考 [CONTRIBUTING.md](CONTRIBUTING.md) 與 [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) 檔案～  
   
-有任何想法，歡迎在 [Issues](https://github.com/boyan1001/boyan_csie_notebook/issues) 提出  
+有任何想法，歡迎在 [Issues](https://github.com/boyan1001/boyan_csie_notebook/issues) 提出。  
 
 ## 💪 貢獻者
 感謝下列大大們的貢獻～  
