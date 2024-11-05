@@ -86,7 +86,8 @@ python main.py
 <a href="https://github.com/boyan1001/2024_ascii_artist/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=boyan1001/2024_ascii_artist" />
 </a>
-
+  
+（有些 commit 太少的 contributor 可能無法透過自動化程式呈現頭像，敬請見諒😓）  
 
 ## 🪪 Lisence  
 [MIT License](LICENSE) © Hank Chen  
