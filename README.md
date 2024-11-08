@@ -87,7 +87,7 @@ python main.py
   <img src="https://contrib.rocks/image?repo=boyan1001/2024_ascii_artist" />
 </a>
   
-（可在 [**contributer**](https://github.com/boyan1001/2024_ascii_artist/pulse) 中觀看完整版貢獻者清單）  
+（可在 [**contributer**](https://github.com/boyan1001/2024_ascii_artist/graphs/contributors) 中觀看完整版貢獻者清單）  
 
 ## 🪪 Lisence  
 [MIT License](LICENSE) © Hank Chen  
