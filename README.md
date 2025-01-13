@@ -60,10 +60,10 @@ pip --version
 ```
 如果你尚未安裝，請先安裝完成。  
   
-接著，安裝 **requests、pillow、opencv-python、numpy** 這四個套件在您所屬的環境中：  
+接著，輸入下方指令，安裝**所有需要的插件**在您所屬的環境中：  
 （為了防止套件衝突，可以使用 **虛擬環境** 安裝套件）  
 ```bach
-pip install requests pillow opencv-python numpy
+pip install -r requirements.txt
 ```
 安裝完成套件後，即可執行該程式。  
 
