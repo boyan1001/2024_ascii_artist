@@ -33,17 +33,21 @@ Jerryleess : Find api we can use / Offer ideas to us
 
 ```sh
 2024_ascii_artist
-├── /files/                存放照片檔案的地方，你也可以在這邊加入你想要輸入的圖片  
-│  ├── original.png        原始檔案
-│  ├── modify.png          經過調整對比度與亮度處理的圖片
-│  ├── ascii_art.png       轉換成 ascii_art 風格的圖片
-│  └── ...
-├── /font/                 儲存字體的資料夾  
-│  ├── DejaVuSansMono.ttf  目前正在使用在 ascii art 的字體，必須為等寬且可支援 window 環境的字體  
-│  └── ...
-├── main.py                主函式
-├── camera.py              照相機模組  
-├── UI.py                  UI 函式庫  
+├── /docs/
+│  ├── /files/                存放照片檔案的地方，你也可以在這邊加入你想要輸入的圖片  
+│  │  ├── original.png        原始檔案（需自行上傳或程式執行產生）
+│  │  ├── modify.png          經過調整對比度與亮度處理的圖片（需自行上傳或程式執行產生）
+│  │  └── ascii_art.png       轉換成 ascii_art 風格的圖片（需自行上傳或程式執行產生）
+│  └── /font/                 儲存字體的資料夾  
+│  　　├── DejaVuSansMono.ttf 目前正在使用在 ascii art 的字體，必須為等寬且可支援 window 環境的字體  
+│  　　└── ...
+├── /src/
+│  ├── api.py                 串接 api 產生動漫與狗狗圖片的函式
+│  ├── camera.py              與攝像機相關的函式
+│  ├── image.py               與照片處理相關的函式
+│  └── UI.py                  UI 函式庫
+├── main.py                   主函式
+├── requirements.txt          紀錄所有需要安奘的 python 插件
 └── ...
 ```
 ## 🖥️ 環境要求    
