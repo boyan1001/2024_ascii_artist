@@ -4,6 +4,14 @@ import threading
 
 exit_flag = False
 
+def find_camera_id():
+    for camera_id in range(10):
+        cap = cv2.VidoeCapture(camera_id)
+        if cap.isOpened():
+            cap.release()
+            return camera_id
+    return -1
+
 def camera_mode():
     global exit_flag
     exit_flag = False
@@ -32,7 +40,13 @@ def camera_mode():
         exit_flag = True
 
     # open camera
-    cap = cv2.VideoCapture(0)
+    camera_id = find_camera_id()
+
+    if camera_id == -1:
+        print("Cannot find camera")
+        return
+    
+    cap = cv2.VideoCapture(camera_id)
 
     # start thread
     thread = threading.Thread(target=wait_for_enter)
